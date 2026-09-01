@@ -68,12 +68,12 @@ def leertxt(archivo):
     return memoria
 
 if __name__ == "__main__":
-    prueba3 = leertxt('programa3.txt')
-    print(ejecutar_lmc(prueba3, [5,6]))
-    prueba2 = leertxt('programa2.txt')
-    print(ejecutar_lmc(prueba2, [5,6]))
+#    prueba3 = leertxt('programa3.txt')
+ #   print(ejecutar_lmc(prueba3, [5,6]))
+  #  prueba2 = leertxt('programa2.txt')
+   # print(ejecutar_lmc(prueba2, [5,6]))
     prueba1 = leertxt('programa1.txt')
     print(ejecutar_lmc(prueba1, [5,6]))
 
-    pruebarec = leertxt('recr.txt')
-    print(ejecutar_lmc(pruebarec, [5,6]))
+   # pruebarec = leertxt('recr.txt')
+    #print(ejecutar_lmc(pruebarec, [5,6]))
