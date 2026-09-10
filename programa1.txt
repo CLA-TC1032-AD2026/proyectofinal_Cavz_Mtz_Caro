@@ -1,6 +1,13 @@
-00,901
-01,399
-02,901
-03,199
-04,902
-05,000
+# Programa 1: suma dos números.
+# Entradas: A, B
+# Salida: A + B
+# Ejemplo: entradas 5 y 6 -> salida 11
+
+        INP
+        STA A
+        INP
+        ADD A
+        OUT
+        HLT
+
+A       DAT 000
