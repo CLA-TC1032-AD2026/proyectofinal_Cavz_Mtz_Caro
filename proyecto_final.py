@@ -1,4 +1,4 @@
-import lmc_s05 as lm
+import lmc as lm
 mmnemico = {"INP":"901","OUT":"902","LDA":"5","STA":"3","ADD":"1","SUB":"2","BRA":"6","BRZ":"7","BRP":"8","HLT":"000","DAT":"000"}
 
 def lmc(memoria,linea):
