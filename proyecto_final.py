@@ -12,7 +12,7 @@ def lmc(memoria,linea):
         if len(memoria)-1<i:
             file.write(str(i)+ "    " + "000" + "\n")
         else:
-                if (mmnemico[memoria[i]]) in not_need_dir:
+                if (mmnemico[memoria[i]]) in need_dir:
                     temp = linea.pop()
                     file.write(str(i)+ "    " + str(mmnemico[str(memoria[i])]) + str(temp) +"    " + str(memoria[i]) + "\n")
                 else:
