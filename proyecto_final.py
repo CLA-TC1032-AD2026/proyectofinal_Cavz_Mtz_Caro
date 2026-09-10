@@ -1,6 +1,10 @@
-import lmc_s05 as lm
+import LMC as lm
+
 mmnemico = {"INP":"901","OUT":"902","LDA":"5","STA":"3","ADD":"1","SUB":"2","BRA":"6","BRZ":"7","BRP":"8","HLT":"000","DAT":"000"}
 
+
+not_need_dir = ["INP","OUT","HLT","DAT"]
+need_dir = ["LDA","STA","ADD","SUB","BRA","BRZ","BRP"]
 def lmc(memoria,linea):
     file = open("solucion.txt","w")
 
@@ -8,7 +12,7 @@ def lmc(memoria,linea):
         if len(memoria)-1<i:
             file.write(str(i)+ "    " + "000" + "\n")
         else:
-                if int(mmnemico[str(memoria[i])])>=1 and int(mmnemico[str(memoria[i])])<=9:
+                if (mmnemico[memoria[i]]) in not_need_dir:
                     temp = linea.pop()
                     file.write(str(i)+ "    " + str(mmnemico[str(memoria[i])]) + str(temp) +"    " + str(memoria[i]) + "\n")
                 else:
