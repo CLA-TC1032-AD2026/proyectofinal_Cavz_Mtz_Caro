@@ -1,0 +1,36 @@
+# Programa 2: multiplica dos números usando sumas repetidas.
+# Entradas: A, B
+# Salida: A * B
+# Ejemplo: entradas 5 y 6 -> salida 30
+# Nota: funciona para enteros no negativos pequeños.
+
+        INP
+        STA A
+        INP
+        STA B
+
+        LDA ZERO
+        STA RES
+        LDA B
+        STA CONT
+
+LOOP    LDA CONT
+        BRZ FIN
+        LDA RES
+        ADD A
+        STA RES
+        LDA CONT
+        SUB ONE
+        STA CONT
+        BRA LOOP
+
+FIN     LDA RES
+        OUT
+        HLT
+
+A       DAT 000
+B       DAT 000
+RES     DAT 000
+CONT    DAT 000
+ONE     DAT 001
+ZERO    DAT 000
