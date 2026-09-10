@@ -1,0 +1,37 @@
+# Programa 3: simula un for loop: for i = 1 hasta N.
+# Calcula la sumatoria 1 + 2 + ... + N.
+# Entrada: N
+# Salida: suma de 1 a N
+# Ejemplo: entrada 5 -> salida 15
+
+        INP
+        STA N
+
+        LDA ZERO
+        STA SUM
+        LDA ONE
+        STA I
+
+LOOP    LDA N
+        SUB I
+        BRP BODY
+        BRA END
+
+BODY    LDA SUM
+        ADD I
+        STA SUM
+
+        LDA I
+        ADD ONE
+        STA I
+        BRA LOOP
+
+END     LDA SUM
+        OUT
+        HLT
+
+N       DAT 000
+SUM     DAT 000
+I       DAT 000
+ONE     DAT 001
+ZERO    DAT 000
