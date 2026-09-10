@@ -1,16 +1,37 @@
-def interLmc(archivo):
+import lmc_s05 as lm
+mmnemico = {"INP":"901","OUT":"902","LDA":"5","STA":"3","ADD":"1","SUB":"2","BRA":"6","BRZ":"7","BRP":"8","HLT":"000","DAT":"000"}
 
+def lmc(memoria,linea):
+    file = open("solucion.txt","w")
+
+    for i in range(0,100):
+        if len(memoria)-1<i:
+            file.write(str(i)+ "    " + "000" + "\n")
+        else:
+                if int(mmnemico[str(memoria[i])])>=1 and int(mmnemico[str(memoria[i])])<=9:
+                    temp = linea.pop()
+                    file.write(str(i)+ "    " + str(mmnemico[str(memoria[i])]) + str(temp) +"    " + str(memoria[i]) + "\n")
+                else:
+                    file.write(str(i)+ "    " + str(mmnemico[str(memoria[i])]) +"    " + str(memoria[i]) + "\n")
+
+def leertxt1(archivo):
+    instruccion = ""
+    memoria = list([])
+    count = 0
     with open(archivo) as file:
-            for linea in file:
-                
-    
-                memoria[direccion] = instruccion
-    
-        return memoria
+        for linea in file:
+            linea = linea.replace(" ","",5)
+            partes = linea.strip().split(' ')
+            instruccion = str(partes[0])
+            if len(partes) > 2:
+                instruccion = str(partes[1])
+            count +=1
+            memoria.append(instruccion)
+    return memoria
 
+temp = list([88,88])
+t = leertxt1("programa1.txt")
+lmc(t, temp)
+pe = lm.leertxt("solucion.txt")
 
-    #creación del archivo
-    file = open("traducido01", "w")
-    #no se pueden reutilizar nombres, si se vuelve a correr 
-    # con función "x" daría error
-    #con función "w" sobreescribe si es que ya existe el archivo
+print(lm.ejecutar_lmc(pe,[7,8]))
