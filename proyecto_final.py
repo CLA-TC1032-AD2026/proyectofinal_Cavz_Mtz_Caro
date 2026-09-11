@@ -1,6 +1,6 @@
 import ejecutar_lmc as lm
 # Diccionario de mnemónicos
-OPCODES = { 
+mnemonicos = { 
     "INP": 901,
     "OUT": 902,
     "HLT": 0,
@@ -25,49 +25,54 @@ def limpiar_linea(linea):
     linea = linea.split("#")[0]
     return linea.strip() # Quita espacios al inicio y al final.
     
-def primera_pasada(lineas):
+def primera_pasada(archivo_entrada):
     # Primera pasada:
     # Lee el archivo, detecta etiquetas y construye la tabla de símbolos.
     # También guarda las instrucciones limpias para traducirlas después.
-    with open(archivo) as file:
-    for numero_linea, linea in enumerate(file, start=1): # Enumerar (mailboxes).
-        linea = limpiar_linea(linea)
+    simbolos = {}
+    instrucciones = []
+    direccion = 0
 
-        if linea == "": # Continuar si la línea está vacía.
-            continue
+    with open(archivo_entrada) as file:
+        for numero_linea, linea in enumerate(file, start=1): # Enumerar (mailboxes).
+            linea = limpiar_linea(linea)
+
+            if linea == "": # Continuar si la línea está vacía.
+                continue
             
-        partes = linea.split() # Separa la línea en partes: etiqueta, mnemónico y operando.
+            partes = linea.split() # Separa la línea en partes: etiqueta, mnemónico y operando.
         
-        # Caso 1: la línea empieza directamente con un mnemónico.
-        # Ejemplo: STA N1
-        if partes[0] in mnemonicos: 
-            mnemonico = partes[0]
-            operando = partes[1] if len(partes) > 1 else None
-        # Caso 2: la línea empieza con una etiqueta.
-            # Ejemplo: N1 DAT 000
-        etiqueta = partes[0]
+            # Caso 1: la línea empieza directamente con un mnemónico.
+            # Ejemplo: STA N1
+            if partes[0] in mnemonicos: 
+                mnemonico = partes[0]
+                operando = partes[1] if len(partes) > 1 else None
+            # Caso 2: la línea empieza con una etiqueta.
+                # Ejemplo: N1 DAT 000
+            else:
+                etiqueta = partes[0]
     
-            if len(partes) < 2:
-                raise ValueError(f"Falta mnemónico después de la etiqueta en línea {numero_linea}: {etiqueta}")
-    
+                if len(partes) < 2:
+                    raise ValueError(f"Falta mnemónico después de la etiqueta en línea {numero_linea}: {etiqueta}")
+        
                 mnemonico = partes[1]
                 operando = partes[2] if len(partes) > 2 else None
     
-            if etiqueta in simbolos: # Detecta etiquetas repetidas.
-                raise ValueError(f"Etiqueta duplicada en línea {numero_linea}: {etiqueta}")
+                if etiqueta in simbolos: # Detecta etiquetas repetidas.
+                    raise ValueError(f"Etiqueta duplicada en línea {numero_linea}: {etiqueta}")
     
-            simbolos[etiqueta] = direccion # Guarda la dirección donde aparece la etiqueta.
+                simbolos[etiqueta] = direccion # Guarda la dirección donde aparece la etiqueta.
 
-        if mnemonico not in mnemonicos: # Valida que el mnemónico sí exista.
-            raise ValueError(f"Mnemónico desconocido en línea {numero_linea}: {mnemonico}")
+            if mnemonico not in mnemonicos: # Valida que el mnemónico sí exista.
+                raise ValueError(f"Mnemónico desconocido en línea {numero_linea}: {mnemonico}")
 
-        instrucciones.append((direccion, mnemonico, operando, numero_linea)) # Guarda la instrucción procesada para la segunda pasada.
-        direccion += 1 # Avanza a la siguiente casilla de memoria.
+            instrucciones.append((direccion, mnemonico, operando, numero_linea)) # Guarda la instrucción procesada para la segunda pasada.
+            direccion += 1 # Avanza a la siguiente casilla de memoria.
 
-        if direccion > 100:
-            raise ValueError("El programa excede las 100 casillas disponibles")
+            if direccion > 100:
+                raise ValueError("El programa excede las 100 casillas disponibles")
 
-return simbolos, instrucciones
+    return simbolos, instrucciones
 
 def segunda_pasada(simbolos, instrucciones):
     # Segunda pasada:
@@ -125,12 +130,20 @@ def ensamblar(archivo_entrada, archivo_salida="solucion.txt"):
 
 if __name__ == "__main__":
     try:
-        # Ensambla el programa fuente.
-        ensamblar("programa1.txt", "solucion.txt")
-        # Lee el archivo ensamblado usando el intérprete LMC.
-        pe = lm.leertxt("solucion.txt")
-        # Ejecuta el programa con entradas de prueba.
-        print(lm.ejecutar_lmc(pe, [7, 8]))
+        # Programa 1
+        ensamblar("programa1.txt", "solucion1.txt")
+        pe = lm.leertxt("solucion1.txt")
+        print("El resultado del programa 1 es:", lm.ejecutar_lmc(pe, [7, 8]))
+
+        # Programa 2
+        ensamblar("programa2.txt", "solucion2.txt")
+        pe = lm.leertxt("solucion2.txt")
+        print("El resultado del programa 2 es:", lm.ejecutar_lmc(pe, [7, 8]))
+
+        # Programa 3
+        ensamblar("programa3.txt", "solucion3.txt")
+        pe = lm.leertxt("solucion3.txt")
+        print("El resultado del programa 3 es:", lm.ejecutar_lmc(pe, [7, 8]))
 
     except ValueError as error:
         print("Error:", error)
