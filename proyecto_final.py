@@ -145,5 +145,15 @@ if __name__ == "__main__":
         pe = lm.leertxt("solucion3.txt")
         print("El resultado del programa 3 es:", lm.ejecutar_lmc(pe, [5]))
 
+        # Programa 4
+        ensamblar("programa4.txt", "solucion4.txt")
+        pe = lm.leertxt("solucion4.txt")
+        print("El resultado del programa 4 es:", lm.ejecutar_lmc(pe, [9, 4]))
+
+        # Programa error
+        ensamblar("programa_error.txt", "solucion_error.txt")
+        pe = lm.leertxt("solucion_error.txt")
+        print("El resultado del programa error es:", lm.ejecutar_lmc(pe, [9, 4]))
+        
     except ValueError as error:
         print("Error:", error)

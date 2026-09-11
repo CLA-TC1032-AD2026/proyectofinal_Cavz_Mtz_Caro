@@ -1,0 +1,17 @@
+# Programa 4: resta dos números.
+# Entradas: A, B
+# Salida: A - B
+# Ejemplo: entradas 9 y 4 -> salida 5
+
+        INP
+        STA A
+        INP
+        STA B
+
+        LDA A
+        SUB B
+        OUT
+        HLT
+
+A       DAT 000
+B       DAT 000
