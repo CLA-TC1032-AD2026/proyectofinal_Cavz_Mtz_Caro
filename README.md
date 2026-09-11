@@ -85,7 +85,7 @@ programa3.txt
 Para ejecutar el proyecto:
 
 ```bash
-python ensamblador.py
+python proyecto_final.py
 ```
 
 El ensamblador genera automáticamente archivos de código máquina:
@@ -184,7 +184,7 @@ NUM1 DAT 0
 Después, ejecuta el ensamblador:
 
 ```bash
-python ensamblador.py
+python proyecto_final.py
 ```
 
 El programa ensamblará `programa1.txt`, generará `solucion1.txt` y ejecutará el código máquina usando las entradas definidas en el bloque principal del archivo Python.
