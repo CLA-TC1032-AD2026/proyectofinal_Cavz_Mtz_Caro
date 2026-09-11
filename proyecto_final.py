@@ -133,17 +133,17 @@ if __name__ == "__main__":
         # Programa 1
         ensamblar("programa1.txt", "solucion1.txt")
         pe = lm.leertxt("solucion1.txt")
-        print("El resultado del programa 1 es:", lm.ejecutar_lmc(pe, [7, 8]))
+        print("El resultado del programa 1 es:", lm.ejecutar_lmc(pe, [5, 6]))
 
         # Programa 2
         ensamblar("programa2.txt", "solucion2.txt")
         pe = lm.leertxt("solucion2.txt")
-        print("El resultado del programa 2 es:", lm.ejecutar_lmc(pe, [7, 8]))
+        print("El resultado del programa 2 es:", lm.ejecutar_lmc(pe, [5, 6]))
 
         # Programa 3
         ensamblar("programa3.txt", "solucion3.txt")
         pe = lm.leertxt("solucion3.txt")
-        print("El resultado del programa 3 es:", lm.ejecutar_lmc(pe, [7, 8]))
+        print("El resultado del programa 3 es:", lm.ejecutar_lmc(pe, [5]))
 
     except ValueError as error:
         print("Error:", error)
