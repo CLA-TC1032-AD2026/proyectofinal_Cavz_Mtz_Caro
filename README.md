@@ -1,73 +1,62 @@
-# LMC: Ensamblador e Intérprete
+Este proyecto implementa un ensamblador de dos pasadas y un intérprete para el modelo pedagógico Little Man Computer (LMC), permitiendo escribir código en lenguaje ensamblador con mnemónicos y etiquetas, traducirlo a código máquina y ejecutarlo de manera automatizada.
 
-Este proyecto implementa un ensamblador de **Little Man Computer (LMC)** y un intérprete capaz de ejecutar el código máquina generado.
+Características Principales
+Ensamblador de dos pasadas: Soporta el uso de etiquetas simbólicas, manejo de comentarios y directivas de almacenamiento (DAT).
 
-## Archivos
+Intérprete completo de LMC: Simula la memoria de 100 casillas (00 a 99), el acumulador, la pila para subrutinas y el flujo de ejecución estándar.
 
-- `ensamblador.py`: traduce un programa LMC escrito con mnemónicos a código máquina.
-- `ejecutar_lmc.py`: carga y ejecuta el código máquina.
-- `programa1.txt`: programa fuente de entrada.
-- `solucion.txt`: archivo generado por el ensamblador.
+Manejo de errores detallado: Valida mnemónicos desconocidos, etiquetas duplicadas o no definidas, desbordamientos de memoria y falta de parámetros.
 
-## Formato de entrada del ensamblador
+Instrucciones Soportadas
+INP (901): Lee un valor de la entrada estándar y lo carga en el acumulador.
 
-Cada línea puede contener una etiqueta opcional, un mnemónico y, cuando corresponda, un operando.
+OUT (902): Envía el valor actual del acumulador a la salida.
 
-```text
+HLT (000): Detiene la ejecución del programa.
+
+LDA (5xx): Carga en el acumulador el valor de la casilla xx.
+
+STA (3xx): Almacena el valor del acumulador en la casilla xx.
+
+ADD (1xx): Suma el valor de la casilla xx al acumulador.
+
+SUB (2xx): Resta el valor de la casilla xx al acumulador.
+
+BRA (6xx): Salto incondicional a la casilla xx.
+
+BRZ (7xx): Salto condicional a xx si el acumulador es cero.
+
+BRP (8xx): Salto condicional a xx si el acumulador es mayor o igual a cero.
+
+CALL (4xx): Llama a una subrutina en la dirección xx (guarda retorno en pila).
+
+RET (999): Retorna de una subrutina usando la dirección almacenada en la pila.
+
+DAT (Variable): Reserva una casilla de memoria con un valor inicial.
+
+Estructura del Código
+Intérprete (ejecutar_lmc y leertxt): Interpreta el archivo de código máquina generado y ejecuta la simulación de la máquina LMC paso a paso.
+
+Ensamblador (primera_pasada y segunda_pasada):
+
+Primera pasada: Construye la tabla de símbolos (etiquetas y direcciones) y limpia comentarios.
+
+Segunda pasada: Traduce los mnemónicos a códigos numéricos y valida la integridad sintáctica.
+
+Bloque Principal (main): Ejemplo listo para ensamblar y ejecutar archivos fuente de prueba (programa1.txt, programa2.txt, etc.).
+
+Ejemplo de Uso
+Crea un archivo de texto llamado programa1.txt con el siguiente contenido:
+
+// Programa de ejemplo: Lee dos números y los suma
 INP
-STA N1
+STA NUM1
 INP
-ADD N1
+ADD NUM1
 OUT
 HLT
-N1 DAT 000
-```
+NUM1 DAT 0
 
-Se aceptan los mnemónicos:
+Ejecuta el script principal para ensamblar y probar el programa:
 
-`INP`, `OUT`, `HLT`, `DAT`, `LDA`, `STA`, `ADD`, `SUB`, `BRA`, `BRZ`, `BRP`, `CALL` y `RET`.
-
-Los comentarios pueden comenzar con `#` o `//`. Los valores de `DAT` deben estar entre `0` y `999`.
-
-## Ejecutar el ensamblador
-
-El programa principal ensambla `programa1.txt` y genera `solucion.txt`:
-
-```bash
-python ensamblador.py
-```
-
-La función también puede usarse desde Python:
-
-```python
-from ensamblador import ensamblar
-
-ensamblar("programa1.txt", "solucion.txt")
-```
-
-## Ejecutar el intérprete
-
-El intérprete espera una memoria de 100 casillas y una lista de valores de entrada para las instrucciones `INP`.
-
-```python
-from ejecutar_lmc import leertxt, ejecutar_lmc
-
-memoria = leertxt("solucion.txt")
-salidas = ejecutar_lmc(memoria, [7, 8])
-
-print(salidas)
-```
-
-El archivo de código máquina debe tener una dirección y una instrucción por línea:
-
-```text
-00 901
-01 306
-02 901
-03 106
-04 902
-05 000
-06 000
-```
-
-`ejecutar_lmc()` regresa una lista con todos los valores producidos por instrucciones `OUT`.
+python tu_script.py
