@@ -53,18 +53,18 @@ def primera_pasada(archivo_entrada):
                 etiqueta = partes[0]
     
                 if len(partes) < 2:
-                    raise ValueError(f"Falta mnemónico después de la etiqueta en línea {numero_linea}: {etiqueta}")
+                    raise ValueError(f"Falta mnemonico despues de la etiqueta en linea {numero_linea}: {etiqueta}")
         
                 mnemonico = partes[1]
                 operando = partes[2] if len(partes) > 2 else None
     
                 if etiqueta in simbolos: # Detecta etiquetas repetidas.
-                    raise ValueError(f"Etiqueta duplicada en línea {numero_linea}: {etiqueta}")
+                    raise ValueError(f"Etiqueta duplicada en linea {numero_linea}: {etiqueta}")
     
                 simbolos[etiqueta] = direccion # Guarda la dirección donde aparece la etiqueta.
 
             if mnemonico not in mnemonicos: # Valida que el mnemónico sí exista.
-                raise ValueError(f"Mnemónico desconocido en línea {numero_linea}: {mnemonico}")
+                raise ValueError(f"Mnemonico desconocido en linea {numero_linea}: {mnemonico}")
 
             instrucciones.append((direccion, mnemonico, operando, numero_linea)) # Guarda la instrucción procesada para la segunda pasada.
             direccion += 1 # Avanza a la siguiente casilla de memoria.
@@ -83,16 +83,16 @@ def segunda_pasada(simbolos, instrucciones):
         # Instrucciones como INP, OUT, HLT y RET ya tienen código completo.
         if mnemonico in sin_operando:
             if operando is not None:
-                raise ValueError(f"{mnemonico} no debe tener operando en línea {numero_linea}")
+                raise ValueError(f"{mnemonico} no debe tener operando en linea {numero_linea}")
 
             memoria[direccion] = int(mnemonicos[mnemonico])
         # Instrucciones como STA N1 o BRP POS necesitan una etiqueta.
         elif mnemonico in con_operando:
             if operando is None:
-                raise ValueError(f"Falta operando para {mnemonico} en línea {numero_linea}")
+                raise ValueError(f"Falta operando para {mnemonico} en linea {numero_linea}")
             # Verifica que la etiqueta usada como operando exista.
             if operando not in simbolos:
-                raise ValueError(f"Etiqueta no definida en línea {numero_linea}: {operando}")
+                raise ValueError(f"Etiqueta no definida en linea {numero_linea}: {operando}")
 
             direccion_operando = simbolos[operando] # Obtiene la dirección real de la etiqueta.
             # Forma el código final: opcode * 100 + dirección.
@@ -107,10 +107,10 @@ def segunda_pasada(simbolos, instrucciones):
                 try:
                     memoria[direccion] = int(operando)
                 except ValueError:
-                    raise ValueError(f"Valor inválido para DAT en línea {numero_linea}: {operando}")
+                    raise ValueError(f"Valor invalido para DAT en linea {numero_linea}: {operando}")
 
                 if memoria[direccion] < 0 or memoria[direccion] > 999: # Valida que el valor quepa en una casilla LMC.
-                    raise ValueError(f"DAT fuera de rango en línea {numero_linea}: {memoria[direccion]}")
+                    raise ValueError(f"DAT fuera de rango en linea {numero_linea}: {memoria[direccion]}")
 
     return memoria
 

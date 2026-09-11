@@ -1,0 +1,39 @@
+# Programa: división de dos números.
+# Calcula DIVIDENDO / DIVISOR mediante restas sucesivas.
+# Entrada: dividendo, divisor
+# Salida: cociente entero
+# Ejemplo: entrada 10, 2 -> salida 5
+
+        INP
+        STA DIVIDENDO
+
+        INP
+        STA DIVISOR
+
+        LDA ZERO
+        STA COCIENTE
+
+LOOP    LDA DIVIDENDO
+        SUB DIVISOR
+        BRP RESTA
+        BRA END
+
+RESTA   LDA DIVIDENDO
+        SUB DIVISOR
+        STA DIVIDENDO
+
+        LDA COCIENTE
+        ADD ONE
+        STA COCIENTE
+
+LOOP    BRA LOOP              # <-- ETIQUETA DUPLICADA
+
+END     LDA COCIENTE
+        OUT
+        HLT
+
+DIVIDENDO DAT 000
+DIVISOR   DAT 000
+COCIENTE  DAT 000
+ONE       DAT 001
+ZERO      DAT 000
